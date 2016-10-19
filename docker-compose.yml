@@ -5,7 +5,7 @@ prod:
   command: start
   restart: always
   ports:
-    - '3020'
+    - '3040'
 
   dns: ${DNS_SERVER}
 

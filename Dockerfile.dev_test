@@ -24,6 +24,6 @@ RUN bundle install --jobs 20 --retry 5
 
 ADD . /rw_chart
 
-EXPOSE 3020
+EXPOSE 3040
 
 ENTRYPOINT ["./entrypoint.sh"]
