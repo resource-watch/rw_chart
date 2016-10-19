@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20161227113446) do
     t.string   "source_url"
     t.string   "authors"
     t.string   "query_url"
-    t.jsonb    "chart_config", default: "{}"
+    t.jsonb    "chart_config", default: {}
     t.integer  "status",       default: 0
     t.boolean  "published",    default: false
     t.datetime "created_at",                   null: false

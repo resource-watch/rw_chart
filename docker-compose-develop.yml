@@ -4,7 +4,7 @@ web:
   volumes:
     - .:/rw_chart
   ports:
-    - '3020:3020'
+    - '3040:3040'
   links:
     - postgres
     - redis
