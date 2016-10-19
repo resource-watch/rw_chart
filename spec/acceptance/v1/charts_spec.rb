@@ -20,7 +20,7 @@ module V1
       let!(:params_faild) {{"chart": { "name": "Chart second one" }}}
 
       let!(:chart) {
-        Chart.create!(name: 'Chart second one', application: ['gfw'])
+        Chart.create!(name: 'Chart second one', application: ['gfw'], status: 1)
       }
 
       let!(:chart_id)   { chart.id   }
@@ -44,7 +44,7 @@ module V1
         }
 
         let!(:unpublished_chart) {
-          Chart.create!(name: 'Chart one unpublished', status: 1, published: false, verified: true)
+          Chart.create!(name: 'Chart one unpublished', status: 0, published: false, verified: true)
         }
 
         it 'Show list of all charts' do
@@ -187,7 +187,7 @@ module V1
 
         expect(status).to eq(200)
         expect(json['attributes']['slug']).to  eq('chart-second-one')
-        expect(json_main['meta']['status']).to eq('pending')
+        expect(json_main['meta']['status']).to eq('saved')
       end
 
       it 'Show chart by id' do

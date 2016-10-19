@@ -29,7 +29,7 @@ module V1
     end
 
     def create
-      @chart = Chart.new(chart_params)
+      @chart = Chart.new(chart_params_for_create)
       if @chart.save
         render json: @chart, status: 201, serializer: ChartSerializer, root: false, meta: { status: @chart.try(:status_txt),
                                                                                             published: @chart.try(:published),
@@ -78,6 +78,10 @@ module V1
 
       def chart_params
         params.require(:chart).permit!
+      end
+
+      def chart_params_for_create
+        chart_params[:status].present? ? chart_params : chart_params.merge(status: 1)
       end
   end
 end
