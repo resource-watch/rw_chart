@@ -8,7 +8,7 @@
         "method": "GET",
         "endpoints": [{
             "method": "GET",
-            "baseUrl": "http://localhost:3020",
+            "baseUrl": "http://localhost:3040",
             "path": "/chart"
         }]
       },
@@ -17,7 +17,7 @@
         "method": "GET",
         "endpoints": [{
             "method": "GET",
-            "baseUrl": "http://localhost:3020",
+            "baseUrl": "http://localhost:3040",
             "path": "/chart/:id"
         }]
       },
@@ -27,7 +27,7 @@
         "authenticated": true,
         "endpoints": [{
             "method": "POST",
-            "baseUrl": "http://localhost:3020",
+            "baseUrl": "http://localhost:3040",
             "path": "/chart"
         }]
       },
@@ -37,7 +37,7 @@
         "authenticated": true,
         "endpoints": [{
             "method": "PUT",
-            "baseUrl": "http://localhost:3020",
+            "baseUrl": "http://localhost:3040",
             "path": "/chart/:id"
         }]
       },
@@ -47,7 +47,7 @@
         "authenticated": true,
         "endpoints": [{
             "method": "PATCH",
-            "baseUrl": "http://localhost:3020",
+            "baseUrl": "http://localhost:3040",
             "path": "/chart/:id"
         }]
       },
@@ -57,7 +57,7 @@
         "authenticated": true,
         "endpoints": [{
             "method": "DELETE",
-            "baseUrl": "http://localhost:3020",
+            "baseUrl": "http://localhost:3040",
             "path": "/chart/:id"
         }]
       }

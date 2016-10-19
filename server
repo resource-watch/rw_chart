@@ -2,7 +2,7 @@
 
 case "$1" in
     start)
-        ps -ef | grep 3020 | grep puma
+        ps -ef | grep 3040 | grep puma
         if [ $? -eq 1 ]
         then
           case "$2" in
@@ -11,21 +11,21 @@ case "$1" in
               bundle exec sidekiq -C config/sidekiq.yml
               echo "Startting server..."
               bundle exec puma -C config/puma.rb
-              echo "Server running on port 3020 ;)!"
+              echo "Server running on port 3040 ;)!"
               ;;
             staging)
               echo "Starting sidekiq..."
               bundle exec sidekiq -e staging -C config/sidekiq.yml
               echo "Startting server..."
               bundle exec puma -e staging -C config/puma.rb
-              echo "Server running on port 3020 ;)!"
+              echo "Server running on port 3040 ;)!"
               ;;
             production)
               echo "Starting sidekiq..."
               bundle exec sidekiq -e production -C config/sidekiq.yml
               echo "Startting server..."
               bundle exec puma -e production -C config/puma.rb
-              echo "Server running on port 3020 ;)!"
+              echo "Server running on port 3040 ;)!"
               ;;
             *)
               echo "Usage: server start {develop|production}" >&2
@@ -33,38 +33,38 @@ case "$1" in
               ;;
           esac
         else
-          echo "Server already running on port 3020 ;)!"
+          echo "Server already running on port 3040 ;)!"
         fi
         ;;
     stop)
-        ps -ef | grep 3020 | grep puma
+        ps -ef | grep 3040 | grep puma
         if [ $? -eq 1 ]
         then
           echo "Server is down."
         else
           echo "Stopping server..."
-          kill -9 $(lsof -i tcp:3020 -t)
+          kill -9 $(lsof -i tcp:3040 -t)
           echo "Server is down."
         fi
         echo "Stopping sidekiq..."
         bundle exec sidekiqctl stop tmp/pids/sidekiq.pid 0
         ;;
     status)
-        ps -ef | grep 3020 | grep puma
+        ps -ef | grep 3040 | grep puma
         if [ $? -eq 1 ]
         then
           echo "Server is down."
         else
-          echo "Server running on port 3020 ;)!"
+          echo "Server running on port 3040 ;)!"
         fi
         ;;
     restart)
-        ps -ef | grep 3020 | grep puma
+        ps -ef | grep 3040 | grep puma
         if [ $? -eq 1 ]
         then
           bundle exec puma -C config/puma.rb
         else
-          kill -9 $(lsof -i tcp:3020 -t) && bundle exec puma -C config/puma.rb
+          kill -9 $(lsof -i tcp:3040 -t) && bundle exec puma -C config/puma.rb
         fi
         ;;
     register-service)

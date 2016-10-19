@@ -60,6 +60,12 @@ To setup the project on docker:
 ./service develop
 ```
 
+To run the tests on docker:
+
+```
+./service test
+```
+
 ## TEST
 
   Run rspec:
