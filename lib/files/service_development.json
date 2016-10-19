@@ -40,6 +40,15 @@
       },
       {
         "url": "/chart/:id",
+        "method": "PATCH",
+        "endpoints": [{
+            "method": "PATCH",
+            "baseUrl": "http://192.168.99.100:3020",
+            "path": "/chart/:id"
+        }]
+      },
+      {
+        "url": "/chart/:id",
         "method": "DELETE",
         "endpoints": [{
             "method": "DELETE",

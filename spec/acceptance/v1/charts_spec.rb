@@ -213,8 +213,17 @@ module V1
         expect(json_main['message']['slug']).to eq(['has already been taken'])
       end
 
-      it 'Allows to update chart' do
+      it 'Allows to update chart via put' do
         put "/chart/#{chart_slug}", params: update_params
+
+        expect(status).to eq(200)
+        expect(json['id']).to                 be_present
+        expect(json['attributes']['name']).to eq('First test one update')
+        expect(json['attributes']['slug']).to eq('updated-first-test-chart')
+      end
+
+      it 'Allows to update chart via patch' do
+        patch "/chart/#{chart_slug}", params: update_params
 
         expect(status).to eq(200)
         expect(json['id']).to                 be_present
