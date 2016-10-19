@@ -1,0 +1,375 @@
+swagger: '2.0'
+info:
+  title: RW Chart API
+  description: Resource Watch - Chart API
+  version: "1.0.0"
+host: example.vizzuality.com
+
+schemes:
+  - https
+  - http
+
+consumes:
+  - application/json
+produces:
+  - application/vnd.api+json
+
+paths:
+  /chart:
+    get:
+      description: Returns all charts
+      produces:
+        - application/vnd.api+json
+      tags:
+        - Chart
+      parameters:
+        - name: status
+          in: query
+          description: Filter charts on status (pending, active, disabled, all)
+          type: string
+          required: false
+        - name: published
+          in: query
+          description: Filter charts on published status (true, false)
+          type: string
+          required: false
+        - name: app
+          in: query
+          description: Filter charts on application (prep, gfw, etc..)
+          type: string
+          required: false
+      responses:
+        200:
+          description: Charts obtained
+          schema:
+            $ref: '#/definitions/Charts'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+    post:
+      summary: Create chart
+      description: Create chart
+      produces:
+        - application/vnd.api+json
+      tags:
+        - Chart
+      parameters:
+        - name: chart
+          in: body
+          description: Chart to save
+          required: true
+          schema:
+            $ref: '#/definitions/ChartCreate'
+      responses:
+        200:
+          description: The object created
+          schema:
+            $ref: '#/definitions/Chart'
+        400:
+          description: Validate error
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /chart/{id}:
+    get:
+      description: Returns chart based on a single UUID or slud, if the geostore not exist return 404
+      produces:
+        - application/vnd.api+json
+      tags:
+        - Chart
+      parameters:
+        - name: id
+          in: path
+          description: UUID of chart to fetch or slug
+          required: true
+          type: string
+      responses:
+        200:
+          description: Chart obtained
+          schema:
+            $ref: '#/definitions/Chart'
+        404:
+          description: Chart not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+    put:
+      description: Update chart based on a single UUID or slug, if the geostore not exist return 404
+      produces:
+        - application/vnd.api+json
+      tags:
+        - Chart
+      parameters:
+        - name: id
+          in: path
+          description: UUID of chart to update or slug
+          required: true
+          type: string
+        - name: chart
+          in: body
+          description: New data of the chart
+          required: true
+          schema:
+            $ref: '#/definitions/ChartCreate'
+      responses:
+        200:
+          description: Chart updated
+          schema:
+            $ref: '#/definitions/Chart'
+        404:
+          description: Chart not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+    delete:
+      description: Delete chart based on a single UUID or slug, if the geostore not exist return 404
+      produces:
+        - application/vnd.api+json
+      tags:
+        - Chart
+      parameters:
+        - name: id
+          in: path
+          description: UUID of chart to delete or slug
+          required: true
+          type: string
+      responses:
+        200:
+          description: Chart updated
+          schema:
+            $ref: '#/definitions/Message'
+        404:
+          description: Chart not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+definitions:
+  ChartCreate:
+    type: object
+    properties:
+      chart:
+        type: object
+        properties:
+          status:
+            type: integer
+            description: Status (pending - 0 (default), saved - 1 (visible if status 1 and published true), failed - 2,  deleted -3)
+          published:
+            type: boolean
+            description: Published status (true - false, visible if status 1 and published true)
+          sourceUrl:
+            type: string
+            description: Source url
+          source:
+            type: string
+            description: Source
+          slug:
+            type: string
+            description: Slug
+          name:
+            type: string
+            description: Name
+          description:
+            type: string
+            description: Description
+          authors:
+            type: string
+            description: Authors
+          queryUrl:
+            type: string
+            description: Url for data
+          chartConfig:
+            type: object
+            description: Chart input
+          layersAttributes:
+            type: array
+            items:
+              $ref: '#/definitions/LayersAttributes'
+
+  LayersAttributes:
+    type: object
+    description: Layer attributes
+    properties:
+      id:
+        type: string
+        format: UUID
+        description: UUID required for layer update
+      name:
+        type: string
+        description: Name of the layer
+      provider:
+        type: integer
+        description: Provider (0 for CartoDB)
+      status:
+        type: integer
+        description: Status (pending - 0 (default), saved - 1 (visible if status 1 and published true), failed - 2,  deleted -3)
+      published:
+        type: boolean
+        description: Published status (true - false, visible if status 1 and published true)
+      color:
+        type: string
+        description: Color
+      zIndex:
+        type: integer
+        description: zIndex
+      settings:
+        type: object
+        description: Settings - config JSON for chart
+
+  Charts:
+    type: array
+    items:
+      $ref: '#/definitions/ChartArray'
+
+  ChartArray:
+    type: object
+    properties:
+      data:
+        type: object
+        properties:
+          type:
+            type: string
+            description: Resource type
+          id:
+            type: string
+            description: Resource id
+          attributes:
+            properties:
+              slug:
+                type: string
+                description: Slug of the chart
+              name:
+                type: string
+                description: Name of the chart
+              published:
+                type: boolean
+                description: Published status
+              status:
+                type: string
+                description: Status
+              verified:
+                type: boolean
+                description: Verified status
+
+  Chart:
+    type: object
+    properties:
+      data:
+        type: object
+        properties:
+          type:
+            type: string
+            description: Resource type
+          id:
+            type: string
+            description: Resource id
+          attributes:
+            properties:
+              id:
+                type: string
+                format: UUID
+                description: Chart id
+              slug:
+                type: string
+                description: Slug of the chart
+              source:
+                type: string
+                description: Source
+              sourceUrl:
+                type: string
+                description: Url
+              name:
+                type: string
+                description: Name of the chart
+              description:
+                type: string
+                description: Description
+              authors:
+                type: string
+                description: Authors
+              queryUrl:
+                type: string
+                description: Url for data
+              chartConfig:
+                type: object
+                description: Chart input
+              layers:
+                type: array
+                items:
+                  $ref: '#/definitions/LayersAttributes'
+      meta:
+        type: object
+        properties:
+          published:
+            type: boolean
+            description: Published status
+          status:
+            type: string
+            description: Status
+          updated_at:
+            type: string
+            description: Date
+          created_at:
+            type: string
+            description: Date
+
+  Message:
+    type: object
+    properties:
+      status:
+        type: number
+      message:
+        type: string
+
+  Error:
+    type: object
+    properties:
+      status:
+        type: string
+        description: The HTTP status code applicable to this problem, expressed as a string value
+      error:
+        type: string
+        description: An application-specific error code, expressed as a string value
+      exception:
+        type: string
+        description: A short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+      traces:
+        type: string
+        description: A human-readable explanation specific to this occurrence of the problem. Like name, this field's value can be localized

@@ -1,0 +1,52 @@
+{
+    "id": "rw_chart_v1",
+    "name": "RW Chart v1",
+    "urls": [
+      {
+        "url": "/chart",
+        "method": "GET",
+        "endpoints": [{
+            "method": "GET",
+            "baseUrl": "http://192.168.99.100:3020",
+            "path": "/chart"
+        }]
+      },
+      {
+        "url": "/chart/:id",
+        "method": "GET",
+        "endpoints": [{
+            "method": "GET",
+            "baseUrl": "http://192.168.99.100:3020",
+            "path": "/chart/:id"
+        }]
+      },
+      {
+        "url": "/chart",
+        "method": "POST",
+        "endpoints": [{
+            "method": "POST",
+            "baseUrl": "http://192.168.99.100:3020",
+            "path": "/chart"
+        }]
+      },
+      {
+        "url": "/chart/:id",
+        "method": "PUT",
+        "endpoints": [{
+            "method": "PUT",
+            "baseUrl": "http://192.168.99.100:3020",
+            "path": "/chart/:id"
+        }]
+      },
+      {
+        "url": "/chart/:id",
+        "method": "DELETE",
+        "endpoints": [{
+            "method": "DELETE",
+            "baseUrl": "http://192.168.99.100:3020",
+            "path": "/chart/:id"
+        }]
+      }
+    ],
+    "swagger": {}
+}

@@ -1,0 +1,22 @@
+prod:
+  image: vizzuality/rw_chart:1.0.0${STAGING}
+  env_file: prod.env
+
+  command: start
+  restart: always
+  ports:
+    - '3020'
+
+  dns: ${DNS_SERVER}
+
+  log_driver: 'gelf'
+  log_opt:
+    gelf-address: ${GELF_ADDRESS}
+
+  links:
+    - redis
+
+redis:
+  image: redis
+  container_name: redis_rw_chart
+  restart: always
