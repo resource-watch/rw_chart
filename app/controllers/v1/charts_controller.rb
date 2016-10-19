@@ -9,33 +9,21 @@ module V1
     end
 
     def show
-      render json: @chart, serializer: ChartSerializer, root: false, meta: { status: @chart.try(:status_txt),
-                                                                             published: @chart.try(:published),
-                                                                             verified: @chart.try(:verified),
-                                                                             updated_at: @chart.try(:updated_at),
-                                                                             created_at: @chart.try(:created_at) }
+      render json: @chart, serializer: ChartSerializer, root: false, meta: chart_meta(@chart)
     end
 
     def update
       if @chart.update(chart_params)
-        render json: @chart, status: 200, serializer: ChartSerializer, root: false, meta: { status: @chart.try(:status_txt),
-                                                                                            published: @chart.try(:published),
-                                                                                            verified: @chart.try(:verified),
-                                                                                            updated_at: @chart.try(:updated_at),
-                                                                                            created_at: @chart.try(:created_at) }
+        render json: @chart, status: 200, serializer: ChartSerializer, root: false, meta: chart_meta(@chart)
       else
         render json: { success: false, message: @chart.errors }, status: 422
       end
     end
 
     def create
-      @chart = Chart.new(chart_params)
+      @chart = Chart.new(chart_params_for_create)
       if @chart.save
-        render json: @chart, status: 201, serializer: ChartSerializer, root: false, meta: { status: @chart.try(:status_txt),
-                                                                                            published: @chart.try(:published),
-                                                                                            verified: @chart.try(:verified),
-                                                                                            updated_at: @chart.try(:updated_at),
-                                                                                            created_at: @chart.try(:created_at) }
+        render json: @chart, status: 201, serializer: ChartSerializer, root: false, meta: chart_meta(@chart)
       else
         render json: { success: false, message: @chart.errors }, status: 422
       end
@@ -76,8 +64,22 @@ module V1
         params.permit(:status, :published, :verified, :app, :template, :dataset, :default, :chart)
       end
 
+      def chart_meta(chart)
+        { status: chart.try(:status_txt),
+          published: chart.try(:published),
+          verified: chart.try(:verified),
+          updated_at: chart.try(:updated_at),
+          created_at: chart.try(:created_at) }
+      end
+
       def chart_params
-        params.require(:chart).permit!
+        params.require(:chart).permit(:name, :slug, :description, :source, :source_url, :authors, :query_url, :chart_config,
+                                      :status, :published, :verified, :layer_id, :dataset_id,
+                                      :template, :default, application: [])
+      end
+
+      def chart_params_for_create
+        chart_params[:status].present? ? chart_params : chart_params.merge(status: 1)
       end
   end
 end

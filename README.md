@@ -11,17 +11,19 @@ Requirements:
 * Ruby 2.3.1 [How to install](https://gorails.com/setup/osx/10.10-yosemite)
 * PostgreSQL 9.4+ [How to install](http://exponential.io/blog/2015/02/21/install-postgresql-on-mac-os-x-via-brew/)
 
-Install global dependencies:
+## Usage
+
+### Natively
+
+First time execute:
+
+    bin/setup
+
+    Or install global dependencies:
 
     gem install bundler
 
-Install project dependencies:
-
     bundle install
-
-## Usage
-
-First time execute:
 
     cp config/database.yml.sample config/database.yml
 
@@ -32,6 +34,32 @@ To run application:
 
     bundle exec rails server
 
+### Using Docker
+
+### Requirements for docker
+
+If You are going to use containers, You will need:
+
+- [Docker](https://www.docker.com/)
+- [docker-compose](https://docs.docker.com/compose/)
+
+## Executing
+
+Start by checking out the project from github
+
+```
+git clone https://github.com/Vizzuality/rw_chart.git
+cd rw_chart
+```
+
+You can either run the application natively, or inside a docker container.
+
+To setup the project on docker:
+
+```
+./service develop
+```
+
 ## TEST
 
   Run rspec:
@@ -41,8 +69,8 @@ To run application:
 ## Contributing
 
 1. Fork it!
-2. Create your feature branch: `git checkout -b feature/my-new-feature`
-3. Commit your changes: `git commit -am 'Add some feature'`
+2. Create Your feature branch: `git checkout -b feature/my-new-feature`
+3. Commit Your changes: `git commit -am 'Add some feature'`
 4. Push to the branch: `git push origin feature/my-new-feature`
 5. Submit a pull request :D
 

@@ -128,8 +128,7 @@ class Chart < ApplicationRecord
     end
 
     def check_slug
-      self.slug   = self.name.downcase.parameterize if self.name.present? && self.slug.blank?
-      self.status = 1
+      self.slug = self.name.downcase.parameterize if self.name.present? && self.slug.blank?
     end
 
     def assign_slug
