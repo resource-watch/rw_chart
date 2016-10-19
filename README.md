@@ -1,6 +1,6 @@
 # Resource Watch Chart Service
 
-[![Build Status](https://travis-ci.org/resource-watch/rw_chart.svg?branch=staging)](https://travis-ci.org/resource-watch/rw_chart) [![Code Climate](https://codeclimate.com/github/resource-watch/rw_chart/badges/gpa.svg)](https://codeclimate.com/github/resource-watch/rw_chart)
+[![Build Status](https://travis-ci.org/resource-watch/rw_chart.svg?branch=master)](https://travis-ci.org/resource-watch/rw_chart) [![Code Climate](https://codeclimate.com/github/resource-watch/rw_chart/badges/gpa.svg)](https://codeclimate.com/github/resource-watch/rw_chart)
 
 TODO: Write a project description
 
