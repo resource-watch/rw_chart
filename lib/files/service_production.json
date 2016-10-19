@@ -43,6 +43,16 @@
       },
       {
         "url": "/chart/:id",
+        "method": "PATCH",
+        "authenticated": true,
+        "endpoints": [{
+            "method": "PATCH",
+            "baseUrl": "http://localhost:3020",
+            "path": "/chart/:id"
+        }]
+      },
+      {
+        "url": "/chart/:id",
         "method": "DELETE",
         "authenticated": true,
         "endpoints": [{
