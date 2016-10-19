@@ -8,7 +8,7 @@ class CreateCharts < ActiveRecord::Migration[5.0]
       t.string  :source_url
       t.string  :authors
       t.string  :query_url
-      t.jsonb   :chart,             default: '{}'
+      t.jsonb   :chart,             default: {}
       t.integer :status,            default: 0,     index: true # status(in process - 0, saved - 1, failed - 2, deleted - 3)
       t.boolean :published,         default: false, index: true
 
